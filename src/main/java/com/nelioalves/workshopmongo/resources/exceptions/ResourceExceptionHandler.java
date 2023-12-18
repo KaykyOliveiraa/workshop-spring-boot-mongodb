@@ -12,9 +12,9 @@ import jakarta.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class ResourceExceptionHandler {
 	
+	//@ExceptionHandler mostra que quando uma excecao do tipo ObjectNotFoundException for acionada, o tratamento dela sera esse metodo abaixo
 	@ExceptionHandler(ObjectNotFoundException.class)
-	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request){
-		
+	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request){	
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Não encontrado", e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
