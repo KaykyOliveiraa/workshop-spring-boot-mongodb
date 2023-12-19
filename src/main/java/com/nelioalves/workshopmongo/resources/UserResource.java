@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.nelioalves.workshopmongo.domain.Post;
 import com.nelioalves.workshopmongo.domain.User;
 import com.nelioalves.workshopmongo.dto.UserDTO;
 import com.nelioalves.workshopmongo.services.UserService;
@@ -37,8 +38,8 @@ public class UserResource {
 	@GetMapping(value = "/{id}")
 	//@PathVariable mostra q o id do parametro do metodo é o mesmo do que da URL passado na anotation acima
 	public ResponseEntity<UserDTO> findById(@PathVariable String id){ 
-		User list = service.findById(id);
-		return ResponseEntity.ok().body(new UserDTO(list));
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(new UserDTO(obj));
 	}
 	
 	@PostMapping
@@ -63,5 +64,9 @@ public class UserResource {
 		return ResponseEntity.noContent().build();
 	}
 	
-	
+	@GetMapping(value = "/{id}/posts")
+	public ResponseEntity<List<Post>> findPost(@PathVariable String id){ 
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(obj.getPosts());
+	}
 }
